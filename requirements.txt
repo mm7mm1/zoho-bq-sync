@@ -1,0 +1,4 @@
+# Runtime dependencies (versions verified with the unit test suite on Python 3.11).
+requests==2.34.2
+google-cloud-bigquery==3.47.0
+google-cloud-secret-manager==2.32.0

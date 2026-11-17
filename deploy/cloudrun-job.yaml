@@ -1,0 +1,59 @@
+# Declarative equivalent of deploy/deploy_job.sh:
+#   source deploy/env.sh && envsubst < deploy/cloudrun-job.yaml > /tmp/job.yaml \
+#     && gcloud run jobs replace /tmp/job.yaml --project "$PROJECT_ID" --region "$REGION"
+apiVersion: run.googleapis.com/v1
+kind: Job
+metadata:
+  name: ${JOB_NAME}
+  labels:
+    cloud.googleapis.com/location: ${REGION}
+    app: zoho-bq-sync
+spec:
+  template:
+    spec:
+      taskCount: 1
+      parallelism: 1
+      template:
+        spec:
+          serviceAccountName: ${RUNTIME_SA}
+          timeoutSeconds: 3600
+          maxRetries: 1
+          containers:
+            - image: ${IMAGE}
+              args: ["sync"]
+              resources:
+                limits:
+                  cpu: "1"
+                  memory: 1Gi
+              env:
+                - name: ZOHO_OAUTH_JSON_FILE
+                  value: /secrets/zoho/oauth.json
+                - name: ZOHO_DC
+                  value: us-developer
+                - name: ZOHO_MODULES
+                  value: Wedding_Bookings
+                - name: TABLE_NAME_OVERRIDES
+                  value: Booked_Services=wedding_bookings_services
+                - name: GCP_PROJECT
+                  value: ${PROJECT_ID}
+                - name: BQ_DATASET
+                  value: ${BQ_DATASET}
+                - name: BQ_STAGING_DATASET
+                  value: ${BQ_STAGING_DATASET}
+                - name: BQ_LOCATION
+                  value: ${BQ_LOCATION}
+                - name: LOG_FORMAT
+                  value: json
+                - name: ZOHO_MAX_API_CALLS_PER_RUN
+                  value: "2000"
+              volumeMounts:
+                - name: zoho-oauth
+                  mountPath: /secrets/zoho
+                  readOnly: true
+          volumes:
+            - name: zoho-oauth
+              secret:
+                secretName: ${SECRET_NAME}
+                items:
+                  - key: latest
+                    path: oauth.json

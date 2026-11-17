@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zoho-bq-sync"
+version = "0.1.0"
+description = "Zoho CRM API v8 -> Google BigQuery replication with dynamic schema evolution, subforms and deletion reconciliation"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "requests>=2.31,<3",
+  "google-cloud-bigquery>=3.25,<4",
+  "google-cloud-secret-manager>=2.20,<3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10"]
+
+[project.scripts]
+zoho-bq-sync = "zoho_bq_sync.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+addopts = "-ra -m 'not integration'"
+markers = [
+  "integration: live tests against a real Zoho CRM org / BigQuery project (opt-in via RUN_LIVE_TESTS=1)",
+]
