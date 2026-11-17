@@ -123,7 +123,7 @@ The live BigQuery test runs the generated SQL against a temporary dataset.
 
 ## Status and honest limitations
 
-- Verified here: 132 unit tests pass on Python 3.11.
+- Verified here: 133 unit tests pass on Python 3.11.
 - Not yet verified: the live integration tests, the Docker build and the GCP deployment.
   Run them in your project first, following [docs/demo_walkthrough.md](docs/demo_walkthrough.md).
 - Zoho API behaviour that cannot be proven from the docs (e.g. whether an edit to a subform row

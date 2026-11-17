@@ -18,7 +18,7 @@ Expected: installs without errors.
 ```bash
 python -m pytest tests -q
 ```
-Expected: `132 passed`.
+Expected: `133 passed`.
 
 3. Zoho module, subform and OAuth, following [zoho_setup.md](zoho_setup.md)
 
@@ -204,7 +204,7 @@ Optional, if time allows: delete a whole booking in Zoho, run `sync` again, and 
 the booking plus its cascaded services.
 
 ### 14:00-15:00 Wrap-up
-- `python -m pytest tests -q` runs 132 tests in under a second. They use mocks, and the demo says so.
+- `python -m pytest tests -q` runs 133 tests in under a second. They use mocks, and the demo says so.
 - Deployment: `deploy/` (Cloud Run Job, secret mounted as a file, least-privilege SAs, Scheduler
   at 02:00, freshness job, log-based metrics). State plainly that it has not been deployed yet,
   if that is the case.
@@ -213,4 +213,4 @@ the booking plus its cascaded services.
 
 ## C. If something breaks live
 - Zoho 429 or a timeout: the logs show `zoho_retry` with backoff, which itself demonstrates resilience. If credits are exhausted, switch to the rehearsal results and **say they come from the rehearsal run**.
-- A BigQuery error: the module fails loudly (`module_sync_failed`) and both the table and the checkpoint stay untouched. Show query 06 to prove the checkpoint did not move, then re-run.
+- A BigQuery error: the module fails loudly (`module_sync_failed`). Its rows and the checkpoint stay untouched, because data and checkpoint commit in one transaction. Additive DDL that ran before the transaction (a new table or a new NULLABLE column) stays in place, which is harmless. Show query 06 to prove the checkpoint did not move, then re-run.

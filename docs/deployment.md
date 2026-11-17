@@ -65,7 +65,7 @@ The declarative alternative to `deploy_job.sh` is
 | Signal | Source | Alert |
 |---|---|---|
 | Job execution failed | `run.googleapis.com/job/completed_execution_count{result="failed"}` | page, any failure |
-| Module failed (table untouched) | log metric `zoho_bq_sync_module_failures` (`event=module_sync_failed`) | > 0 |
+| Module failed (data and checkpoint untouched) | log metric `zoho_bq_sync_module_failures` (`event=module_sync_failed`) | > 0 |
 | Data stale | `zoho-bq-sync-freshness` job exits 2 when `_sync_state.updated_at` is older than 26 h, which counts as a failed execution | same alert |
 | Reconciliation mismatch | log metric `zoho_bq_sync_reconciliation_mismatch` | > 0 for 2 consecutive days |
 | Rate limiting | log metric `zoho_bq_sync_rate_limited` | trend |

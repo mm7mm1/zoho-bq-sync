@@ -8,7 +8,7 @@ source "$(dirname "$0")/env.sh"
 BASE='resource.type="cloud_run_job" AND resource.labels.job_name="'"$JOB_NAME"'"'
 
 gcloud logging metrics create zoho_bq_sync_module_failures --project "$PROJECT_ID" \
-  --description="Modules that failed to sync (table and checkpoint untouched)" \
+  --description="Modules that failed to sync (data and checkpoint untouched)" \
   --log-filter="${BASE} AND jsonPayload.event=\"module_sync_failed\"" 2>/dev/null || echo "metric exists"
 
 gcloud logging metrics create zoho_bq_sync_reconciliation_mismatch --project "$PROJECT_ID" \

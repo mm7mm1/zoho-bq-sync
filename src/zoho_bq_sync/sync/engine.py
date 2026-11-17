@@ -3,7 +3,8 @@
 Per module: discover fields -> build schema -> evolve tables (additive DDL) -> decide mode
 -> extract -> normalize -> fetch deletions -> apply in one transaction (data + checkpoint)
 -> reconcile counts -> record run. Modules are isolated: one failing module leaves its
-tables and checkpoint untouched, the others still sync, and the run exits non-zero.
+rows and checkpoint untouched (additive DDL that ran before the transaction may stay),
+the others still sync, and the run exits non-zero.
 """
 
 from __future__ import annotations

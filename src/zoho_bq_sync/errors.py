@@ -1,7 +1,8 @@
 """Exception hierarchy.
 
 Every pipeline failure is a RuntimeError subclass so that the Cloud Run task exits
-non-zero and the BigQuery target stays untouched (writes happen in one transaction).
+non-zero and the BigQuery rows and checkpoint stay untouched (data writes happen in one
+transaction; additive DDL that ran before it may stay).
 """
 
 from __future__ import annotations
