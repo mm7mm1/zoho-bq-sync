@@ -212,5 +212,9 @@ the booking plus its cascaded services.
   for subforms, retention of the deleted-records API.
 
 ## C. If something breaks live
+- Every CLI command (and every `seed_demo_data.py` call) refreshes a Zoho access token, and
+  Zoho allows 10 per refresh token in 10 minutes. More than that fails with
+  `Zoho token refresh failed: HTTP 400, error=Access Denied` until the window clears. Do not
+  rehearse in the 10 minutes before the call; the script itself needs about 6 commands.
 - Zoho 429 or a timeout: the logs show `zoho_retry` with backoff, which itself demonstrates resilience. If credits are exhausted, switch to the rehearsal results and **say they come from the rehearsal run**.
 - A BigQuery error: the module fails loudly (`module_sync_failed`). Its rows and the checkpoint stay untouched, because data and checkpoint commit in one transaction. Additive DDL that ran before the transaction (a new table or a new NULLABLE column) stays in place, which is harmless. Show query 06 to prove the checkpoint did not move, then re-run.
