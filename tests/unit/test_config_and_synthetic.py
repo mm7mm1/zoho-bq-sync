@@ -24,6 +24,11 @@ def test_oauth_json_secret_file(tmp_path):
     assert s.zoho.client_id == "cid" and s.zoho.refresh_token == "rt" and s.zoho.api_domain == "https://developer.zohoapis.com"
 
 
+def test_eu_developer_org_uses_dedicated_host():
+    s = load_settings({**BASE, "ZOHO_DC": "eu-developer"})
+    assert s.zoho.accounts_url == "https://accounts.zoho.eu" and s.zoho.api_domain == "https://developer.zohoapis.eu"
+
+
 def test_overrides_and_validation():
     s = load_settings({**BASE, "TABLE_NAME_OVERRIDES": "Booked_Services=wedding_bookings_services", "ZOHO_MODULES": "Wedding_Bookings, Contacts"})
     assert s.sync.table_name_overrides == {"Booked_Services": "wedding_bookings_services"}

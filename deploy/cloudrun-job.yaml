@@ -29,7 +29,7 @@ spec:
                 - name: ZOHO_OAUTH_JSON_FILE
                   value: /secrets/zoho/oauth.json
                 - name: ZOHO_DC
-                  value: us-developer
+                  value: ${ZOHO_DC}
                 - name: ZOHO_MODULES
                   value: Wedding_Bookings
                 - name: TABLE_NAME_OVERRIDES

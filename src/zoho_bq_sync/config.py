@@ -21,10 +21,12 @@ DATA_CENTERS: dict[str, tuple[str, str]] = {
     "cn": ("https://accounts.zoho.com.cn", "https://www.zohoapis.com.cn"),
     "ca": ("https://accounts.zohocloud.ca", "https://www.zohoapis.ca"),
     "sa": ("https://accounts.zoho.sa", "https://www.zohoapis.sa"),
-    # Developer-edition and sandbox orgs authenticate on the US accounts server but are
-    # served from dedicated API hosts.
+    # Developer-edition and sandbox orgs authenticate on their data center's accounts server
+    # but are served from dedicated API hosts. The token response still reports the regular
+    # www.zohoapis.* host, which answers 401 for these orgs.
     "us-developer": ("https://accounts.zoho.com", "https://developer.zohoapis.com"),
     "us-sandbox": ("https://accounts.zoho.com", "https://sandbox.zohoapis.com"),
+    "eu-developer": ("https://accounts.zoho.eu", "https://developer.zohoapis.eu"),
 }
 
 _DATASET_RE = re.compile(r"^[A-Za-z0-9_]{1,1024}$")

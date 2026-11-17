@@ -22,7 +22,7 @@ gcloud run jobs deploy "$JOB_NAME" \
   --memory 1Gi \
   --args sync \
   --set-secrets "/secrets/zoho/oauth.json=${SECRET_NAME}:latest" \
-  --set-env-vars "^|^ZOHO_OAUTH_JSON_FILE=/secrets/zoho/oauth.json|ZOHO_DC=us-developer|ZOHO_MODULES=Wedding_Bookings|TABLE_NAME_OVERRIDES=Booked_Services=wedding_bookings_services|GCP_PROJECT=${PROJECT_ID}|BQ_DATASET=${BQ_DATASET}|BQ_STAGING_DATASET=${BQ_STAGING_DATASET}|BQ_LOCATION=${BQ_LOCATION}|LOG_FORMAT=json|ZOHO_MAX_API_CALLS_PER_RUN=2000"
+  --set-env-vars "^|^ZOHO_OAUTH_JSON_FILE=/secrets/zoho/oauth.json|ZOHO_DC=${ZOHO_DC:?ZOHO_DC is not set, source .env first}|ZOHO_MODULES=Wedding_Bookings|TABLE_NAME_OVERRIDES=Booked_Services=wedding_bookings_services|GCP_PROJECT=${PROJECT_ID}|BQ_DATASET=${BQ_DATASET}|BQ_STAGING_DATASET=${BQ_STAGING_DATASET}|BQ_LOCATION=${BQ_LOCATION}|LOG_FORMAT=json|ZOHO_MAX_API_CALLS_PER_RUN=2000"
 
 # Optional companion job: fails (exit 2) when data is stale, which triggers the job-failure alert.
 gcloud run jobs deploy "${JOB_NAME}-freshness" \

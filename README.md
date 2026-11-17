@@ -13,7 +13,7 @@ starts with `WB-SYN-`). Unit tests use clearly labelled mocks. Nothing has been 
 | Capability | How |
 |---|---|
 | OAuth 2.0 | Refresh-token grant, the 1 h access token is cached and refreshed 5 min before expiry. Re-auth happens once on `INVALID_TOKEN`. A guard stops refresh storms (Zoho allows 10 tokens per 10 min). |
-| Data centers | `ZOHO_DC` = us, eu, in, au, jp, cn, ca, sa, us-developer or us-sandbox, plus explicit URL overrides |
+| Data centers | `ZOHO_DC` = us, eu, in, au, jp, cn, ca, sa, us-developer, us-sandbox or eu-developer, plus explicit URL overrides |
 | Discovery | `GET /settings/modules` and `GET /settings/fields?module=` cover standard, custom and subform modules |
 | Dynamic schema | Zoho `data_type` is mapped to a BigQuery type. New fields arrive as `ADD COLUMN` (NULLABLE). Safe widening uses `ALTER COLUMN SET DATA TYPE`. Nothing is ever dropped. |
 | Subforms | Each subform goes to its own child table with a `parent_id` FK. Rows removed in Zoho are soft-deleted when the parent is re-synced. |
@@ -123,7 +123,7 @@ The live BigQuery test runs the generated SQL against a temporary dataset.
 
 ## Status and honest limitations
 
-- Verified here: 133 unit tests pass on Python 3.11.
+- Verified here: 134 unit tests pass on Python 3.11.
 - Not yet verified: the live integration tests, the Docker build and the GCP deployment.
   Run them in your project first, following [docs/demo_walkthrough.md](docs/demo_walkthrough.md).
 - Zoho API behaviour that cannot be proven from the docs (e.g. whether an edit to a subform row

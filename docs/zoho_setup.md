@@ -2,9 +2,12 @@
 
 ## 1. Org
 
-Sign up for a Zoho CRM **developer edition** (free). It uses the US accounts server and the
-`developer.zohoapis.com` API host, so set `ZOHO_DC=us-developer`. If your org is a regular
-edition in another data center, use that DC (`eu`, `in`, ...).
+Sign up for a Zoho CRM **developer edition** (free). Zoho creates it in the data center where
+your Zoho account lives, whichever sign-up page you start from. An EU account gets
+`developer.zoho.eu/crm` and the `developer.zohoapis.eu` API host: set `ZOHO_DC=eu-developer`.
+A US account gets `developer.zohoapis.com`: set `ZOHO_DC=us-developer`. The token response
+reports `www.zohoapis.*` for these orgs, which answers 401. If your org is a regular edition,
+use its DC (`eu`, `in`, ...).
 
 ## 2. Custom module `Wedding Bookings`
 
@@ -56,7 +59,7 @@ Do **not** create `Apostille Deadline` yet. You add it live during the demo.
 
 ```bash
 export ZOHO_CLIENT_ID=1000.XXXX ZOHO_CLIENT_SECRET=xxxx
-python scripts/exchange_grant_token.py --dc us-developer --code 1000.yyyy --out secrets/zoho-oauth.json
+python scripts/exchange_grant_token.py --dc eu-developer --code 1000.yyyy --out secrets/zoho-oauth.json
 ```
 
 For production, issue a separate read-only token for the pipeline

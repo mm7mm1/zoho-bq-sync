@@ -18,12 +18,12 @@ Expected: installs without errors.
 ```bash
 python -m pytest tests -q
 ```
-Expected: `133 passed`.
+Expected: `134 passed`.
 
 3. Zoho module, subform and OAuth, following [zoho_setup.md](zoho_setup.md)
 
 ```bash
-python scripts/exchange_grant_token.py --dc us-developer --code 1000.<grant-code> --out secrets/zoho-oauth.json
+python scripts/exchange_grant_token.py --dc eu-developer --code 1000.<grant-code> --out secrets/zoho-oauth.json
 ```
 Expected: `Wrote secrets/zoho-oauth.json (scopes: ...)`.
 
@@ -204,7 +204,7 @@ Optional, if time allows: delete a whole booking in Zoho, run `sync` again, and 
 the booking plus its cascaded services.
 
 ### 14:00-15:00 Wrap-up
-- `python -m pytest tests -q` runs 133 tests in under a second. They use mocks, and the demo says so.
+- `python -m pytest tests -q` runs 134 tests in under a second. They use mocks, and the demo says so.
 - Deployment: `deploy/` (Cloud Run Job, secret mounted as a file, least-privilege SAs, Scheduler
   at 02:00, freshness job, log-based metrics). State plainly that it has not been deployed yet,
   if that is the case.

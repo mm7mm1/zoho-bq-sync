@@ -6,7 +6,7 @@
    (the grant code lives 3-10 minutes).
 2. Run:
      export ZOHO_CLIENT_ID=... ZOHO_CLIENT_SECRET=...
-     python scripts/exchange_grant_token.py --dc us-developer --code 1000.xxxx --out secrets/zoho-oauth.json
+     python scripts/exchange_grant_token.py --dc eu-developer --code 1000.xxxx --out secrets/zoho-oauth.json
 3. Upload the file to Secret Manager (see docs/deployment.md) and delete the local copy.
 
 The refresh token is written to a 0600 file, never printed.
@@ -60,7 +60,7 @@ def main() -> int:
                 "refresh_token": body["refresh_token"],
                 "accounts_url": accounts_url,
                 # Developer/sandbox orgs need the dedicated host even if the token response says otherwise.
-                "api_domain": default_api if args.dc.startswith("us-") else body.get("api_domain", default_api),
+                "api_domain": default_api if "-" in args.dc else body.get("api_domain", default_api),
             },
             handle,
             indent=2,
