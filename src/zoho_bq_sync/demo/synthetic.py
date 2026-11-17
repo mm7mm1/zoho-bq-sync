@@ -38,7 +38,6 @@ SUBFORM_FIELDS = (
     "Service_Date",
     "Quantity",
     "Unit_Price",
-    "Service_Confirmed",
 )
 
 CEREMONY_TYPES = ("Civil Marriage", "Symbolic Ceremony", "Religious Ceremony", "Vow Renewal")
@@ -109,7 +108,6 @@ def generate_service(rng: random.Random, wedding_date: date, guest_count: int, i
         "Service_Date": (wedding_date + timedelta(days=offset_days)).isoformat(),
         "Quantity": quantity,
         "Unit_Price": float(_money(rng.uniform(low, high))),
-        "Service_Confirmed": rng.random() < 0.6,
     }
 
 

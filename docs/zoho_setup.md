@@ -44,7 +44,14 @@ the API name `Booked_Services`. Add these fields:
 | Service Date | Date | `Service_Date` |
 | Quantity | Number | `Quantity` |
 | Unit Price | Currency | `Unit_Price` |
-| Service Confirmed | Checkbox | `Service_Confirmed` |
+
+The developer edition refuses a third checkbox in this module (Email Opt Out and Documents
+Verified already count), so the subform has no checkbox field.
+
+The custom module and its 12 parent fields can also be created through the API
+(`POST /settings/modules`, `POST /settings/fields?module=Wedding_Bookings`, scopes
+`ZohoCRM.settings.modules.ALL,ZohoCRM.settings.fields.ALL,ZohoCRM.settings.profiles.READ`).
+The subform cannot: Zoho only creates subforms in the layout editor.
 
 Do **not** create `Apostille Deadline` yet. You add it live during the demo.
 

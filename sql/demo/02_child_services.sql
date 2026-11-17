@@ -8,8 +8,7 @@ SELECT
   vendor_name,
   service_date,
   quantity,
-  unit_price,
-  service_confirmed
+  unit_price
 FROM zoho_crm.wedding_bookings_services
 WHERE _is_deleted IS NOT TRUE
 ORDER BY parent_id, _row_index;
