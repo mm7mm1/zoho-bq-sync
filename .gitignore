@@ -8,3 +8,6 @@ secrets/
 *.egg-info/
 build/
 dist/
+.idea/
+.vscode/
+.DS_Store
